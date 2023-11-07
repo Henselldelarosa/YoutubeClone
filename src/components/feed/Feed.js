@@ -3,7 +3,16 @@ import {Box, Stack, Typography} from '@mui/material'
 import Sidebar from '../Sidebar'
 import Videos from '../Videos'
 
+import {fetchFromAPI} from '../utils/fetchFromAPI'
+
 const Feed = () => {
+
+  const [selectedCategory, setSelectedCategory] = useState('New')
+
+  useEffect(() => {
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+  },[selectedCategory])
+
   return (
     <Stack
     sx={{flexDirection: {sx: 'column', md: 'row'}}}>
@@ -14,7 +23,8 @@ const Feed = () => {
           px:{sx: 0, md:2}
         }}>
 
-          <Sidebar/>
+          <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
+          />
           <Typography className='copyright'
           variant='body2' sx={{mt: 1.5, color:'#fff'}}>
             Copyright 2022 JSM Media
@@ -31,12 +41,12 @@ const Feed = () => {
         sx={{color:'white'}}
         >
 
-          New <span style={{color: '#F31503'}}>
+          {selectedCategory} <span style={{color: '#F31503'}}>
             Video
           </span>
         </Typography>
 
-        <Videos/>
+        <Videos videos={[]}/>
       </Box>
     </Stack>
   )
