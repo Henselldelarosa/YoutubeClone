@@ -18,6 +18,7 @@ const SearchBar = () => {
     >
 
       <input
+      placeholder='Search...'
       className="search-bar"
       value=''
       onChange={() => {}}
